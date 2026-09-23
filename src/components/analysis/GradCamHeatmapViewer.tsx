@@ -88,7 +88,7 @@ export const GradCamHeatmapViewer: React.FC<GradCamHeatmapViewerProps> = ({
             }}
             className="absolute inset-0 bg-gradient-to-tr from-blue-600/60 via-amber-500/60 to-rose-600/70 pointer-events-none filter blur-[6px] contrast-150"
           >
-            {/* Focal Hotspot Simulation */}
+            {/* Focal hotspot visualization */}
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-48 h-48 bg-rose-500/80 rounded-full blur-2xl animate-pulse" />
           </div>
         )}

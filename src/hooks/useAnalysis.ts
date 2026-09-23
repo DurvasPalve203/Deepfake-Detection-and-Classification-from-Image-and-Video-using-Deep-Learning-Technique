@@ -11,7 +11,7 @@ export function useAnalysis() {
   const [currentProgress, setCurrentProgress] = useState<number>(0);
   const [pipelineSteps, setPipelineSteps] = useState<AnalysisPipelineStep[]>([]);
   
-  const { addAnalysis, setCurrentResult } = useAnalysisContext();
+  const { addAnalysis, setCurrentResult, backendUrl } = useAnalysisContext();
   const { showToast } = useToast();
   const navigate = useNavigate();
 
@@ -32,6 +32,7 @@ export function useAnalysis() {
       const result: AnalysisResult = await performForensicAnalysis(
         file,
         mediaType,
+        backendUrl,
         (stepIndex, stepLabel, percent) => {
           setCurrentProgress(percent);
           setCurrentStepLabel(stepLabel);
@@ -50,6 +51,9 @@ export function useAnalysis() {
       setPipelineSteps(prev => prev.map(s => ({ ...s, status: 'completed' })));
       setCurrentProgress(100);
       setCurrentStepLabel('Forensic analysis complete!');
+
+      // Keep the browser-local media available to the result viewer.
+      result.fileMetadata.previewUrl = URL.createObjectURL(file);
 
       // Save to context & history
       addAnalysis(result);
@@ -75,7 +79,7 @@ export function useAnalysis() {
       showToast('error', 'Forensic Analysis Failed', err?.message || 'An unexpected error occurred during processing.');
       throw err;
     }
-  }, [addAnalysis, setCurrentResult, showToast, navigate]);
+  }, [addAnalysis, backendUrl, setCurrentResult, showToast, navigate]);
 
   return {
     isAnalyzing,

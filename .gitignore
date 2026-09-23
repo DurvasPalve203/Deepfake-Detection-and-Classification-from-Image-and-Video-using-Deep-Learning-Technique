@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Trained model artifacts and local ML data
+models/video/checkpoints/
+models/video/dataset/
+models/video/cache/
+__pycache__/
+*.py[cod]
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -151,7 +151,7 @@ export const AudioWaveformVisualizer: React.FC<AudioWaveformVisualizerProps> = (
           />
         </div>
 
-        {/* Spectrogram Frequency Heat Map Simulation */}
+        {/* Spectrogram frequency visualization */}
         <div className="space-y-1.5 pt-2">
           <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
             <span>Mel-Frequency Density Spectrogram</span>

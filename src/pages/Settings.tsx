@@ -42,16 +42,16 @@ export const Settings: React.FC = () => {
     setIsTestingConnection(true);
 
     try {
-      const isHealthy = await checkBackendHealth();
+      const isHealthy = await checkBackendHealth(inputUrl);
       setIsBackendConnected(isHealthy);
       if (isHealthy) {
         showToast('success', 'FastAPI Connected', `Successfully connected to DeepTrace backend at ${inputUrl}`, 3000);
       } else {
-        showToast('info', 'Client Simulation Mode Active', `No live FastAPI server reached at ${inputUrl}. Running on browser simulation engine.`, 4000);
+        showToast('error', 'Model Backend Unavailable', `No live model service reached at ${inputUrl}.`, 4000);
       }
     } catch {
       setIsBackendConnected(false);
-      showToast('info', 'Client Simulation Active', 'Running local mock forensic service.', 3000);
+      showToast('error', 'Model Backend Unavailable', `Could not reach ${inputUrl}.`, 3000);
     } finally {
       setIsTestingConnection(false);
     }
@@ -183,15 +183,15 @@ export const Settings: React.FC = () => {
               'text-[10px] font-mono px-2 py-0.5 rounded-full border',
               isBackendConnected
                 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30'
+                : 'bg-rose-500/10 text-rose-400 border-rose-500/30'
             )}
           >
-            {isBackendConnected ? 'Connected (FastAPI)' : 'Client Sim Engine'}
+            {isBackendConnected ? 'Connected (FastAPI)' : 'Disconnected'}
           </span>
         </div>
 
         <p className="text-xs text-slate-400 leading-relaxed">
-          Configure the REST API endpoint for the future FastAPI Python PyTorch inference server (`VITE_API_BASE_URL`). If disconnected or unavailable, DeepTrace AI seamlessly uses the client-side forensic mock engine.
+          Configure the REST API endpoint for the FastAPI PyTorch inference server. Analysis requires this live model service; no client-side fallback is used.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-3">

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { AnalysisResult } from '../types/analysis';
+import { checkBackendHealth } from '../services/api';
 
 interface AnalysisContextType {
   analyses: AnalysisResult[];
@@ -19,7 +20,7 @@ interface AnalysisContextType {
 
 const AnalysisContext = createContext<AnalysisContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'deeptrace_analyses_v1';
+const STORAGE_KEY = 'deeptrace_analyses_v2';
 const SENSITIVITY_KEY = 'deeptrace_sensitivity';
 const BACKEND_URL_KEY = 'deeptrace_backend_url';
 
@@ -49,6 +50,16 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
   });
 
   const [isBackendConnected, setIsBackendConnected] = useState<boolean>(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    checkBackendHealth(backendUrl).then(connected => {
+      if (!cancelled) setIsBackendConnected(connected);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [backendUrl]);
 
   useEffect(() => {
     try {

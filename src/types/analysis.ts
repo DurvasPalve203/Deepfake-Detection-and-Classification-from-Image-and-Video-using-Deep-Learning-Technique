@@ -64,10 +64,10 @@ export interface VideoExplainability {
   fps: number;
   suspiciousFramesCount: number;
   suspiciousFrames: SuspiciousFrame[];
-  spatiotemporalJitterScore: number;
-  eyeblinkPatternConsistency: number; // 0 - 100%
-  lipSyncCoherence: number; // 0 - 100%
-  temporalFlickerScore: number;
+  spatiotemporalJitterScore?: number;
+  eyeblinkPatternConsistency?: number; // 0 - 100%
+  lipSyncCoherence?: number; // 0 - 100%
+  temporalFlickerScore?: number;
   timelineHeatmap: { timestamp: string; anomalyScore: number; frame: number }[];
 }
 

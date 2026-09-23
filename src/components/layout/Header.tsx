@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenMobileNav }) => {
           {isBackendConnected ? (
             <span className="text-emerald-400 font-medium">FastAPI Engine</span>
           ) : (
-            <span className="text-cyan-400 font-medium">Client Sim (Mock)</span>
+            <span className="text-rose-400 font-medium">Disconnected</span>
           )}
         </div>
 

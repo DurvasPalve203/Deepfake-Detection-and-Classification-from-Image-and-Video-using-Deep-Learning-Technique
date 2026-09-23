@@ -191,26 +191,8 @@ export const VideoTimelineScrubber: React.FC<VideoTimelineScrubberProps> = ({
         </div>
       )}
 
-      {/* Temporal Metrics Row */}
-      <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-800 text-center font-mono">
-        <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
-          <span className="text-[10px] text-slate-400 block">Jitter Index</span>
-          <span className="text-sm font-bold text-rose-400">
-            {videoDetails.spatiotemporalJitterScore} / 100
-          </span>
-        </div>
-        <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
-          <span className="text-[10px] text-slate-400 block">Blink Rate Coherence</span>
-          <span className="text-sm font-bold text-amber-400">
-            {videoDetails.eyeblinkPatternConsistency}%
-          </span>
-        </div>
-        <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
-          <span className="text-[10px] text-slate-400 block">Lip-Sync Match</span>
-          <span className="text-sm font-bold text-cyan-400">
-            {videoDetails.lipSyncCoherence}%
-          </span>
-        </div>
+      <div className="pt-3 border-t border-slate-800 text-xs text-slate-500 font-mono">
+        Timeline values are the trained model's per-frame fake probabilities. Physiological and lip-sync metrics are not reported by this model.
       </div>
     </div>
   );
